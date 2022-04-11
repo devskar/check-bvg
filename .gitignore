@@ -1,0 +1,18 @@
+# git
+.git
+
+# ide's / editor
+.vscode
+.vscode-test
+.idea
+
+# yarn / npm / node
+*.lock
+package-lock.json
+node_modules
+
+# macOs
+.DS_Store
+
+# env
+.env

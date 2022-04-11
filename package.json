@@ -1,0 +1,30 @@
+{
+  "name": "ts-blank",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "description": "A blank TypeScript project",
+  "repository": "https://github.com/devskar/init-cli",
+  "author": "oskar <36141470+devskar@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon --exec",
+    "lint": "eslint src/"
+  },
+  "devDependencies": {
+    "@types/hafas-client": "^5.22.0",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.10.2",
+    "@typescript-eslint/parser": "^5.10.2",
+    "eslint": "^8.8.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "hafas-client": "^5.23.0"
+  }
+}
