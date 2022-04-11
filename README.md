@@ -2,7 +2,7 @@
 
 ## Explanation
 
-Should be a simple command line tool that give u an x amount of departures from a train station to a another one, to arrive at a certain time.
+Simple command line tool that give u an x amount of departures from a train station to a another one, to arrive at a certain time.
 
 It works completely config based, but all parameters should also be able to be passed via command line. Command Line arguments will always override config arguments.
 

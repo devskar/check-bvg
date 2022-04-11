@@ -1,9 +1,12 @@
 {
-  "name": "ts-blank",
+  "name": "check-bvg",
   "version": "1.0.0",
   "main": "src/index.ts",
-  "description": "A blank TypeScript project",
-  "repository": "https://github.com/devskar/init-cli",
+  "description": "Simple command line tool that give u an x amount of departures from a train station to a another one, to arrive at a certain time.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devskar/check-bvg.git"
+  },
   "author": "oskar <36141470+devskar@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
@@ -26,5 +29,13 @@
   },
   "dependencies": {
     "hafas-client": "^5.23.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/devskar/check-bvg/issues"
+  },
+  "homepage": "https://github.com/devskar/check-bvg#readme",
+  "keywords": [
+    "bvg",
+    "tram"
+  ]
 }
