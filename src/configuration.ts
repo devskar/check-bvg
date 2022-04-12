@@ -1,4 +1,6 @@
 import { Command, Option } from 'commander';
+import fs from 'fs';
+import { resolve } from 'path';
 import packageJson from '../package.json';
 
 type Configuration = {
@@ -24,26 +26,45 @@ const defaultConfiguration: Configuration = {
 	resultAmount: 3,
 };
 
-export const readConfigFile = (path: string): Configuration => {
-	throw new Error('not implemented');
+export const readConfigFile = (path: string): object => {
+	const fullPath = resolve(path);
+
+	try {
+		const rawdata = fs.readFileSync(fullPath);
+
+		// check for content in file
+		if (rawdata.length < 1) {
+			console.log(
+				'Config file at ' + fullPath + ' seems to be empty. Skipping...',
+			);
+
+			return {};
+		}
+		// parsing json file to js object
+		return JSON.parse(rawdata.toString());
+	} catch (err) {
+		console.log(`Could not load config at "${fullPath}". Skipping...`);
+		return {};
+	}
 };
 
-export const validateArgv = (command: Command) => {
+export const validateArgv = (command: Command): Configuration => {
 	command.parse(process.argv);
 	let values = command.opts();
-	console.log(values);
-	if (values['config']) {
-		values = { ...readConfigFile(values['config']), ...values };
-	}
 
+	values = {
+		...readConfigFile(values['config'] ?? defaultConfiguration.config),
+		...values,
+	};
+
+	// filling up values, with the default configuration in case values is not a complete configuration yet
 	if (!isConfiguration(values)) {
-		console.log('Not all config items are set...');
+		console.log('Not all config items are set');
 		console.log('Using default config to fill');
 
 		values = { ...defaultConfiguration, ...values };
 	}
-
-	console.log(values);
+	return values as Configuration;
 };
 
 export const createCLICommand = (): Command => {

@@ -1,0 +1,7 @@
+{
+	"config": "bvg-check.config.json",
+	"start": "Prerower Platz",
+	"end": "Sandino Straße",
+	"arrivalTime": "8am",
+	"resultAmount": 3
+}
