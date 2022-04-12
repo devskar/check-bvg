@@ -3,7 +3,7 @@ import fs from 'fs';
 import { resolve } from 'path';
 import packageJson from '../package.json';
 
-type Configuration = {
+export type Configuration = {
 	config: string;
 	start: string;
 	end: string;
@@ -22,7 +22,7 @@ const defaultConfiguration: Configuration = {
 	config: 'bvg-check.config.json',
 	start: 'S+U Alexanderplatz',
 	end: 'S Hackescher Markt',
-	arrivalTime: '8am',
+	arrivalTime: '8:00',
 	resultAmount: 3,
 };
 
@@ -34,7 +34,7 @@ export const readConfigFile = (path: string): object => {
 
 		// check for content in file
 		if (rawdata.length < 1) {
-			console.log(
+			console.warn(
 				'Config file at ' + fullPath + ' seems to be empty. Skipping...',
 			);
 
@@ -43,7 +43,7 @@ export const readConfigFile = (path: string): object => {
 		// parsing json file to js object
 		return JSON.parse(rawdata.toString());
 	} catch (err) {
-		console.log(`Could not load config at "${fullPath}". Skipping...`);
+		console.warn(`Could not load config at "${fullPath}". Skipping...`);
 		return {};
 	}
 };
@@ -59,12 +59,39 @@ export const validateArgv = (command: Command): Configuration => {
 
 	// filling up values, with the default configuration in case values is not a complete configuration yet
 	if (!isConfiguration(values)) {
-		console.log('Not all config items are set');
-		console.log('Using default config to fill');
+		console.warn('Not all config items are set');
+		console.warn('Using default config to fill');
 
 		values = { ...defaultConfiguration, ...values };
 	}
-	return values as Configuration;
+
+	const filledConfig: Configuration = values as Configuration;
+
+	// simple check if time is set correctly
+	const [hoursStr, minutesStr]: string[] = filledConfig.arrivalTime.split(':');
+	const hours = Number.parseInt(hoursStr);
+	const minutes = Number.parseInt(minutesStr);
+
+	if (hours > 24 || 0 > hours) {
+		console.warn('Arrival hour must be between 0 and 24. Using default value');
+		filledConfig.arrivalTime = defaultConfiguration.arrivalTime;
+	} else {
+		// hours correct
+
+		if (isNaN(minutes) || minutes > 60 || 0 > minutes) {
+			// hours correct, numbers incorrect
+
+			console.warn(
+				'Arrival minutes must be between 0 and 60. No minutes will be specified',
+			);
+			filledConfig.arrivalTime = hours.toString();
+		} else {
+			// if everything was correct
+			filledConfig.arrivalTime = hours + ':' + minutes;
+		}
+	}
+
+	return filledConfig;
 };
 
 export const createCLICommand = (): Command => {

@@ -67,9 +67,10 @@ class BVGClient {
 	getJourney = async (
 		from: string | Station | Stop | Location,
 		to: string | Station | Stop | Location,
+		arrival?: Date,
 	): Promise<Journeys> => {
 		return this.client.journeys(from, to, {
-			arrival: new Date(new Date().setHours(new Date().getHours() + 2)),
+			arrival: arrival,
 		});
 	};
 }
