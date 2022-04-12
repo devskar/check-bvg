@@ -38,3 +38,7 @@ Options:
 ## Use Case
 
 I am using this script personally to get the 3 latest trains I have to catch every morning. The results will later be used by another service.
+
+## Features
+
+[ ] Parings Dates as AM/PM
