@@ -1,14 +1,15 @@
-import BVGClient from './BVGClient';
+import { createCLICommand, validateArgv } from './configuration';
 
 const main = async () => {
-	const client: BVGClient = new BVGClient('bvg-checker');
+	const command = createCLICommand();
+	validateArgv(command);
+};
 
-	const start = await client.getLocation('Prerower Platz');
-	const end = await client.getLocation('Simon-Bolivar Straße');
-
-	const journeys = await client.getJourney(start, end);
-
-	console.log(journeys.journeys![0]);
+const getJournes = async () => {
+	// const client: BVGClient = new BVGClient('bvg-checker');
+	// const start = await client.getLocation('Prerower Platz');
+	// const end = await client.getLocation('Simon-Bolivar Straße');
+	// const journeys = await client.getJourney(start, end);
 };
 
 main();
