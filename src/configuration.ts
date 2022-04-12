@@ -1,20 +1,49 @@
 import { Command, Option } from 'commander';
 import packageJson from '../package.json';
 
-const defaultConfiguration = {
+type Configuration = {
+	config: string;
+	start: string;
+	end: string;
+	arrivalTime: string;
+	resultAmount: number;
+};
+
+const requiredConfigurationKeys = [
+	'start',
+	'end',
+	'arrivalTime',
+	'resultAmount',
+];
+
+const defaultConfiguration: Configuration = {
+	config: 'bvg-check.config.json',
 	start: 'S+U Alexanderplatz',
 	end: 'S Hackescher Markt',
 	arrivalTime: '8am',
 	resultAmount: 3,
 };
 
-export const valdiateConfigFile = (path: string) => {
+export const readConfigFile = (path: string): Configuration => {
 	throw new Error('not implemented');
 };
 
 export const validateArgv = (command: Command) => {
 	command.parse(process.argv);
-	console.log(command.opts());
+	let values = command.opts();
+	console.log(values);
+	if (values['config']) {
+		values = { ...readConfigFile(values['config']), ...values };
+	}
+
+	if (!isConfiguration(values)) {
+		console.log('Not all config items are set...');
+		console.log('Using default config to fill');
+
+		values = { ...defaultConfiguration, ...values };
+	}
+
+	console.log(values);
 };
 
 export const createCLICommand = (): Command => {
@@ -44,6 +73,12 @@ export const createCLICommand = (): Command => {
 			new Option(
 				'-R, --resultAmount <amount>',
 				'Amount of results the script should return',
-			),
+			).argParser(value => Number.parseInt(value)),
 		);
+};
+
+const isConfiguration = (obj: object): obj is Configuration => {
+	return requiredConfigurationKeys.every(key =>
+		Object.prototype.hasOwnProperty.call(obj, key),
+	);
 };
