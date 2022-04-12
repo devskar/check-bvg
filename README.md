@@ -34,6 +34,7 @@ Options:
 	<li>-R, --resultAmount &lt;amount> Amount of results the script should return</li>
 	<li>-h, --help display help for command</li>
 </ul>
+
 ## Use Case
 
 I am using this script personally to get the 3 latest trains I have to catch every morning. The results will later be used by another service.
