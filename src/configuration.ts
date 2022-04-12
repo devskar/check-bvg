@@ -49,7 +49,7 @@ export const validateArgv = (command: Command) => {
 export const createCLICommand = (): Command => {
 	return new Command(packageJson.name)
 		.version(packageJson.version)
-		.usage('check-bvg [options]')
+		.usage('[options]')
 		.addOption(new Option('-C, --config <config-path>', 'Path to config'))
 		.addOption(
 			new Option(
