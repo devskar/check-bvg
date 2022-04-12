@@ -16,3 +16,6 @@ node_modules
 
 # env
 .env
+
+# check-bvg
+examples/private.check-bvg.config.json
