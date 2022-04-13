@@ -19,7 +19,7 @@ const requiredConfigurationKeys = [
 ];
 
 const defaultConfiguration: Configuration = {
-	config: 'bvg-check.config.json',
+	config: 'check-bvg.config.json',
 	start: 'S+U Alexanderplatz',
 	end: 'S Hackescher Markt',
 	arrivalTime: '8:00',
