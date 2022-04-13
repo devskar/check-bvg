@@ -9,6 +9,8 @@ export type Configuration = {
 	end: string;
 	arrivalTime: string;
 	resultAmount: number;
+	server: boolean;
+	port: number;
 };
 
 const requiredConfigurationKeys = [
@@ -24,6 +26,8 @@ const defaultConfiguration: Configuration = {
 	end: 'S Hackescher Markt',
 	arrivalTime: '8:00',
 	resultAmount: 3,
+	server: false,
+	port: 3000,
 };
 
 export const readConfigFile = (path: string): object => {
@@ -50,22 +54,14 @@ export const readConfigFile = (path: string): object => {
 
 export const validateArgv = (command: Command): Configuration => {
 	command.parse(process.argv);
-	let values = command.opts();
+	const values = command.opts();
 
-	values = {
+	// using the defaultConfig as base, overriding it with the config file and after that we override it with the argv
+	const filledConfig: Configuration = {
+		...defaultConfiguration,
 		...readConfigFile(values['config'] ?? defaultConfiguration.config),
 		...values,
 	};
-
-	// filling up values, with the default configuration in case values is not a complete configuration yet
-	if (!isConfiguration(values)) {
-		console.warn('Not all config items are set');
-		console.warn('Using default config to fill');
-
-		values = { ...defaultConfiguration, ...values };
-	}
-
-	const filledConfig: Configuration = values as Configuration;
 
 	// simple check if time is set correctly
 	const [hoursStr, minutesStr]: string[] = filledConfig.arrivalTime.split(':');
@@ -121,6 +117,15 @@ export const createCLICommand = (): Command => {
 			new Option(
 				'-R, --resultAmount <amount>',
 				'Amount of results the script should return',
+			).argParser(value => Number.parseInt(value)),
+		)
+		.addOption(
+			new Option('--server', 'Sets up a server that responds to rest requests'),
+		)
+		.addOption(
+			new Option(
+				'-P, --port <port>',
+				'Defines the port of the server',
 			).argParser(value => Number.parseInt(value)),
 		);
 };
