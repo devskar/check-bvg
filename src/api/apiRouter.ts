@@ -1,8 +1,8 @@
 import express from 'express';
-import { getInfo } from './apiController';
+import journeyRoute from './routes/journeyRoute';
 
 const bvgRouter = express.Router();
 
-bvgRouter.get('/', getInfo);
+bvgRouter.use('/journey', journeyRoute);
 
 export default bvgRouter;

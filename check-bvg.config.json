@@ -2,5 +2,7 @@
 	"start": "S Spandau",
 	"end": "S Landsberger Allee",
 	"arrivalTime": "8:30",
-	"resultAmount": 3
+	"resultAmount": 3,
+	"port": 3001,
+	"server": true
 }

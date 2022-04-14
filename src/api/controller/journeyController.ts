@@ -1,10 +1,6 @@
 import express from 'express';
-import packageJson from '../../package.json';
-import BVGClient from '../BVGClient';
-import BVGHelper from '../BVGHelper';
-import { Configuration, fillupWithDefaultConfig } from '../configuration';
-
-const bvgHelper = new BVGHelper(new BVGClient(packageJson.name));
+import { Configuration, fillupWithDefaultConfig } from '../../configuration';
+import { helper as bvgHelper } from '../../index';
 
 export const getJourney = async (
 	req: express.Request,

@@ -130,6 +130,10 @@ export const createCLICommand = (): Command => {
 		);
 };
 
+export const fillupWithDefaultConfig = (obj: object): Configuration => {
+	return { ...defaultConfiguration, ...obj };
+};
+
 const isConfiguration = (obj: object): obj is Configuration => {
 	return requiredConfigurationKeys.every(key =>
 		Object.prototype.hasOwnProperty.call(obj, key),
