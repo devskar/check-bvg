@@ -1,7 +1,7 @@
 import { Journeys } from 'hafas-client';
+import { Configuration } from '../configuration';
+import { numberToDate } from '../utils';
 import BVGClient from './BVGClient';
-import { Configuration } from './configuration';
-import { numberToDate } from './utils';
 
 class BVGHelper {
 	client: BVGClient;

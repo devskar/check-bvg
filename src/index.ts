@@ -1,7 +1,7 @@
 import packageJson from '../package.json';
 import { start } from './api/server';
-import BVGClient from './BVGClient';
-import BVGHelper from './BVGHelper';
+import BVGClient from './bvg/BVGClient';
+import BVGHelper from './bvg/BVGHelper';
 import { Configuration, createCLICommand, validateArgv } from './configuration';
 
 export const client = new BVGClient(packageJson.name);
